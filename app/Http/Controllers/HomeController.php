@@ -51,6 +51,14 @@ class HomeController extends Controller
         return response()->json(['success' => 'Status Changed Successfully']);
     }
 
+    public function editData(Request $request)
+    {
+        ToDoList::where('id', $request->id)->update([
+            'name' => $request->value
+        ]);
+        return response()->json(['success' => 'Status Changed Successfully']);
+    }
+
     public function delete($id) {
         try {
             return ToDoList::destroy($id);

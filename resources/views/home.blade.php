@@ -27,15 +27,17 @@
                             @foreach($to_do_list as $list)
                                 <tr>
                                     <th>{{$list->id}}</th>
-                                    <td>{{$list->name}}</td>
+                                    <td>{{$list->name}} <div class="input-group mb-3 mt-2 edit-task-input">
+                                            <input type="text" class="form-control taskValue" data-id="{{ $list->id }}">
+                                            <button class="btn btn-outline-primary taskSave" type="button">Save</button>
+                                        </div></td>
                                     <td>
                                         <input type="checkbox" data-width="40" class="form-check-input"
                                                data-id="{{ $list->id }}" data-toggle="toggle" data-style="slow"
                                                data-onstyle="success" data-offstyle="danger" data-on=1
                                                data-off=0 {{ $list->status == true ? 'checked' : ''}}></td>
                                     <td>
-                                        <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
-
+                                        <button type="button" class="btn btn-outline-warning btn-sm edit-task">Edit</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -107,5 +109,42 @@
                 }
             });
         });
+
+        $('.edit-task-input').hide();
+        $('tbody').each(function (i, data) {
+            $('.edit-task').on('click', function (e) {
+                e.preventDefault();
+                $(this).closest('tr').find('.edit-task-input').toggle();
+            });
+
+            $(".taskSave").on('click',function (e) {
+                e.preventDefault();
+                var value = $(this).closest('.edit-task-input').find('.taskValue').val();
+                var id = $(this).closest('.edit-task-input').find('.taskValue').data('id')
+                const CSRF_TOKEN = $('meta[name="csrf-token"]:eq(0)').attr('content');
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'JSON',
+                    url: '/editData',
+                    data: {
+                        'value': value,
+                        'id': id,
+                        _token: CSRF_TOKEN
+                    },
+                    success:function(data) {
+                        swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Görev Düzenlendi',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+                            location.reload();
+                        })
+                    }
+                });
+            });
+        });
+
     });
 </script>

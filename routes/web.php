@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/completed-works', [App\Http\Controllers\HomeController::class, 'completedWorks'])->name('completedWorks');
 
 Route::post('insertData', [App\Http\Controllers\HomeController::class, 'insertData']);
+Route::post('editData', [App\Http\Controllers\HomeController::class, 'editData']);
 Route::post('/changeStatus', [App\Http\Controllers\HomeController::class, 'changeStatus']);
 Route::post('/{id}/delete', [App\Http\Controllers\HomeController::class, 'delete'])->name('delete')->whereNumber('id');
-
