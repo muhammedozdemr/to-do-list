@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('To-Do List') }}</div>
+                    <div class="card-header">{{ __('To-Do List') }} <a href="{{route('completedWorks')}}" type="button" class="btn btn-primary btn-sm float-end">Completed Works</a></div>
 
                     <div class="card-body">
                         <div class="input-group mb-3">

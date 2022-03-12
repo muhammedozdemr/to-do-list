@@ -50,4 +50,12 @@ class HomeController extends Controller
         ]);
         return response()->json(['success' => 'Status Changed Successfully']);
     }
+
+    public function delete($id) {
+        try {
+            return ToDoList::destroy($id);
+        } catch (Exception $e) {
+            return response(['message' => $e->getMessage()], 404);
+        }
+    }
 }

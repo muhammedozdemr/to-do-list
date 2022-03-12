@@ -21,4 +21,5 @@ Route::get('/completed-works', [App\Http\Controllers\HomeController::class, 'com
 
 Route::post('insertData', [App\Http\Controllers\HomeController::class, 'insertData']);
 Route::post('/changeStatus', [App\Http\Controllers\HomeController::class, 'changeStatus']);
+Route::post('/{id}/delete', [App\Http\Controllers\HomeController::class, 'delete'])->name('delete')->whereNumber('id');
 
