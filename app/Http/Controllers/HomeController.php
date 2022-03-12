@@ -28,6 +28,12 @@ class HomeController extends Controller
         return view('home',['to_do_list' => $to_do_list]);
     }
 
+    public function completedWorks()
+    {
+        $to_do_list=ToDoList::where('status',1)->paginate(10);
+        return view('/completedWorks',['to_do_list' => $to_do_list]);
+    }
+
     public function insertData(Request $request)
     {
         $new_task = new ToDoList();
